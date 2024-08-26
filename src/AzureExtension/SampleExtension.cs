@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using HackerNewsExtension;
+using AzureCommandPaletteExtension;
 using Microsoft.Windows.Run.SDK;
 
 namespace SampleDevPalExtension;
@@ -25,7 +25,7 @@ public sealed class SampleExtension : IExtension
         switch (providerType)
         {
             case ProviderType.Actions:
-                return new HackerNewsActionsProvider();
+                return new CommandPaletteActionsProvider();
             default:
                 // ignore the possible null reference warning
 #pragma warning disable CS8603
