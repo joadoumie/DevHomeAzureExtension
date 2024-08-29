@@ -63,7 +63,7 @@
         </com:Extension>
 		  <com:Extension Category="windows.comServer">
 			  <com:ComServer>
-				  <com:ExeServer Executable="DevHomeAzureExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="Command Palette Sample Azure Extension">
+				  <com:ExeServer Executable="CommandPaletteExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="CommandPaletteSampleAzureExtension">
 					  <com:Class Id="3A82287D-75C3-4C73-8E66-C21D9FDE679C" DisplayName="CommandPaletteAzureExtension" />
 				  </com:ExeServer>
 			  </com:ComServer>

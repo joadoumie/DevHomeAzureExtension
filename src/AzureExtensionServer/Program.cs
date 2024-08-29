@@ -17,9 +17,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using Microsoft.Windows.AppNotifications;
-using Microsoft.Windows.Run.Sdk;
-using Microsoft.Windows.Run.Sdk.Lib;
-using SampleDevPalExtension;
 using Serilog;
 using Windows.ApplicationModel.Activation;
 using Windows.Management.Deployment;
@@ -132,34 +129,19 @@ public sealed class Program
 
     private static void HandleCOMServerActivation()
     {
-        Log.Information($"Activating COM Server");
-
-        using Microsoft.Windows.Run.SDK.ExtensionServer server = new();
-        var extensionDisposedEvent = new ManualResetEvent(false);
-        var extensionInstance = new SampleExtension(extensionDisposedEvent);
-
-        // We are instantiating an extension instance once above, and returning it every time the callback in RegisterExtension below is called.
-        // This makes sure that only one instance of SampleExtension is alive, which is returned every time the host asks for the IExtension object.
-        // If you want to instantiate a new instance each time the host asks, create the new instance inside the delegate.
-        server.RegisterExtension(() => extensionInstance);
-
-        // This will make the main thread wait until the event is signalled by the extension class.
-        // Since we have single instance of the extension object, we exit as sooon as it is disposed.
-        extensionDisposedEvent.WaitOne();
-
         // Register and run COM server.
         // This could be called by either of the COM registrations, we will do them all to avoid deadlock and bind all on the extension's lifetime.
-        using var extensionServer2 = new Microsoft.Windows.DevHome.SDK.ExtensionServer();
-        var extensionDisposedEvent2 = new ManualResetEvent(false);
+        using var extensionServer = new Microsoft.Windows.DevHome.SDK.ExtensionServer();
+        var extensionDisposedEvent = new ManualResetEvent(false);
 
         // Create host with dependency injection
         using var host = CreateHost();
-        var extensionInstance2 = new AzureExtension(extensionDisposedEvent2, host);
+        var extensionInstance = new AzureExtension(extensionDisposedEvent, host);
 
         // We are instantiating extension instance once above, and returning it every time the callback in RegisterExtension below is called.
         // This makes sure that only one instance of SampleExtension is alive, which is returned every time the host asks for the IExtension object.
         // If you want to instantiate a new instance each time the host asks, create the new instance inside the delegate.
-        extensionServer2.RegisterExtension(() => extensionInstance2, true);
+        extensionServer.RegisterExtension(() => extensionInstance, true);
 
         // We may have received an event on previous launch that the datastore should be recreated.
         // It should be recreated now before anything else tries to use it.
@@ -188,7 +170,7 @@ public sealed class Program
 
         // This will make the main thread wait until the event is signaled by the extension class.
         // Since we have single instance of the extension object, we exit as soon as it is disposed.
-        extensionDisposedEvent2.WaitOne();
+        extensionDisposedEvent.WaitOne();
         Log.Information($"Extension is disposed.");
     }
 

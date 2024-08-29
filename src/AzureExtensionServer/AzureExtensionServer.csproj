@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureExtension\AzureExtension.csproj" />
+    <ProjectReference Include="..\CommandPaletteExtension\CommandPaletteExtension.csproj" />
   </ItemGroup>
 
   <ItemGroup>
