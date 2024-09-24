@@ -92,6 +92,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\devcmdpal\extensionsdk\Microsoft.Windows.Run.SDK.Lib\Microsoft.Windows.Run.SDK.Lib.csproj" />    
     <ProjectReference Include="..\Telemetry\AzureExtension.Telemetry.csproj" />
   </ItemGroup>
 

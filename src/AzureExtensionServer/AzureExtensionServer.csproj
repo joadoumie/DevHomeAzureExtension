@@ -15,7 +15,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>DevHomeAzureExtension.Program</StartupObject>
     <UseWinUI>false</UseWinUI>
-    <CsWinRTEnabled>false</CsWinRTEnabled>
+    <CsWinRTEnabled>true</CsWinRTEnabled>
     <EnableMsixTooling>true</EnableMsixTooling>
     <AssemblyName>DevHomeAzureExtension</AssemblyName>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureExtension\AzureExtension.csproj" />
+    <ProjectReference Include="..\CommandPaletteExtension\CommandPaletteExtension.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.4" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />

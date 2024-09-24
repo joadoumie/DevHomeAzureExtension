@@ -10,9 +10,11 @@ using DevHomeAzureExtension.DeveloperId;
 using DevHomeAzureExtension.Providers;
 using DevHomeAzureExtension.QuickStartPlayground;
 using DevHomeAzureExtension.Services.DevBox;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
 using Microsoft.Windows.AppNotifications;
 using Serilog;
@@ -127,8 +129,6 @@ public sealed class Program
 
     private static void HandleCOMServerActivation()
     {
-        Log.Information($"Activating COM Server");
-
         // Register and run COM server.
         // This could be called by either of the COM registrations, we will do them all to avoid deadlock and bind all on the extension's lifetime.
         using var extensionServer = new Microsoft.Windows.DevHome.SDK.ExtensionServer();

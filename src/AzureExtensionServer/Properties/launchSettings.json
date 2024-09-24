@@ -12,6 +12,10 @@
     "Provider": {
       "commandName": "MsixPackage",
       "commandLineArgs": "-RegisterProcessAsComServer"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
     }
   }
 }

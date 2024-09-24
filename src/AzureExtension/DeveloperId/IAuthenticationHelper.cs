@@ -15,7 +15,7 @@ public interface IAuthenticationHelper
 
     public void InitializePublicClientApplicationBuilder();
 
-    public void InitializePublicClientAppForWAMBrokerAsync();
+    public Task InitializePublicClientAppForWAMBrokerAsync();
 
     public Task<IEnumerable<string>> GetAllStoredLoginIdsAsync();
 

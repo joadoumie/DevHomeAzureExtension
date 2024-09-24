@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<OutputType>Exe</OutputType>
+		<Configurations>Debug;Release;Debug_FailFast</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug_FailFast'">
+		<OutputType>Exe</OutputType>
+		<Configurations>Debug;Release;Debug_FailFast</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UseWinUI>false</UseWinUI>
+		<CsWinRTEnabled>true</CsWinRTEnabled>
+		<StartupObject>AzureCommandPaletteExtension.Program</StartupObject>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<TargetFramework>net8.0-windows10.0.22000.0</TargetFramework>
+		<Platforms>x86;x64;arm64</Platforms>
+		<PublishProfileFullPath Condition="'$(BuildingInsideVisualStudio)' != 'True'">$(SolutionDir)\src\Properties\PublishProfiles\win-$(Platform).pubxml</PublishProfileFullPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240607001" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.4" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\devcmdpal\extensionsdk\Microsoft.Windows.Run.SDK.Lib\Microsoft.Windows.Run.SDK.Lib.csproj" />
+		<ProjectReference Include="..\AzureExtension\AzureExtension.csproj" />
+	</ItemGroup>
+
+</Project>

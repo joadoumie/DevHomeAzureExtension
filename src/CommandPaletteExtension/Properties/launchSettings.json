@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AzureCommandPaletteExtension": {
+      "commandName": "Project",
+      "commandLineArgs": "-RegisterProcessAsComServer"
+    }
+  }
+}

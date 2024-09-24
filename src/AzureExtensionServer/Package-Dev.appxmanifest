@@ -61,6 +61,32 @@
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
+		  <com:Extension Category="windows.comServer">
+			  <com:ComServer>
+				  <com:ExeServer Executable="CommandPaletteExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="CommandPaletteSampleAzureExtension">
+					  <com:Class Id="3A82287D-75C3-4C73-8E66-C21D9FDE679C" DisplayName="CommandPaletteAzureExtension" />
+				  </com:ExeServer>
+			  </com:ComServer>
+		  </com:Extension>
+		  <uap3:Extension Category="windows.appExtension">
+			  <uap3:AppExtension Name="com.microsoft.run"
+				Id="PG-SP-ID"
+				PublicFolder="Public"
+				DisplayName="Command Palette Azure Sample"
+				Description="Command Palette Azure Sample Extension">
+				  <uap3:Properties>
+					  <DevPalProvider>
+						  <Activation>
+							  <CreateInstance ClassId="3A82287D-75C3-4C73-8E66-C21D9FDE679C" />
+						  </Activation>
+						  <SupportedInterfaces>
+							  <Settings />
+							  <FeaturedApplications />
+						  </SupportedInterfaces>
+					  </DevPalProvider>
+				  </uap3:Properties>
+			  </uap3:AppExtension>
+		  </uap3:Extension>
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="com.microsoft.windows.widgets" DisplayName="ms-resource:WidgetProviderDisplayNameDev" Id="01" PublicFolder="Public">
             <uap3:Properties>
