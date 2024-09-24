@@ -137,6 +137,26 @@ public class DeveloperIdProvider : IDeveloperIdProvider
         }).AsAsyncOperation();
     }
 
+    public IAsyncOperation<DeveloperIdResult> ShowLogonSession()
+    {
+        return Task.Run(async () =>
+        {
+            await DeveloperIdAuthenticationHelper.InitializePublicClientAppForWAMBrokerAsync();
+            var account = DeveloperIdAuthenticationHelper.LoginDeveloperAccount(DeveloperIdAuthenticationHelper.MicrosoftEntraIdSettings.ScopesArray);
+
+            if (account.Result == null)
+            {
+                _log.Error($"Invalid AuthRequest");
+                var exception = new InvalidOperationException();
+                return new DeveloperIdResult(exception, "An issue has occurred with the authentication request");
+            }
+
+            var devId = CreateOrUpdateDeveloperId(account.Result);
+            _log.Information($"New DeveloperId logged in");
+            return new DeveloperIdResult(devId);
+        }).AsAsyncOperation();
+    }
+
     public ProviderOperationResult LogoutDeveloperId(IDeveloperId developerId)
     {
         DeveloperId? developerIdToLogout;

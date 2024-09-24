@@ -43,13 +43,18 @@ public class AuthenticationHelper : IAuthenticationHelper
 
     private static readonly ILogger _log = _logger.Value;
 
+    private async void InitializeHelperAsync()
+    {
+        await InitializePublicClientAppForWAMBrokerAsync();
+    }
+
     public AuthenticationHelper()
     {
         MicrosoftEntraIdSettings = new AuthenticationSettings();
 
         InitializePublicClientApplicationBuilder();
 
-        InitializePublicClientAppForWAMBrokerAsync();
+        InitializeHelperAsync();
     }
 
     public void InitializePublicClientApplicationBuilder()
@@ -65,7 +70,7 @@ public class AuthenticationHelper : IAuthenticationHelper
         _log.Debug($"Created PublicClientApplicationBuilder");
     }
 
-    public async void InitializePublicClientAppForWAMBrokerAsync()
+    public async Task InitializePublicClientAppForWAMBrokerAsync()
     {
         if (PublicClientApplicationBuilder != null)
         {

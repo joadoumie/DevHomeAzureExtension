@@ -36,7 +36,7 @@ internal sealed class MockAuthenticationHelper : IAuthenticationHelper
         return _loginIds;
     }
 
-    public async void InitializePublicClientAppForWAMBrokerAsync()
+    public async Task InitializePublicClientAppForWAMBrokerAsync()
     {
         await Task.Run(() => { });
         return;

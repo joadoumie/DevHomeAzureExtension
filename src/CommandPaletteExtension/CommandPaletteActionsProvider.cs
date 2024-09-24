@@ -217,6 +217,14 @@ internal sealed class ViewQueryAction : ListPage
 
     public override ISection[] GetItems()
     {
+        // check if there is a valid logged in user
+        var devIdProvider = DeveloperIdProvider.GetInstance();
+        var loggedInDeveloperIds = devIdProvider.GetLoggedInDeveloperIds();
+        if (!loggedInDeveloperIds.DeveloperIds.Any())
+        {
+            return [new ListSection() { Title = "Not logged in", Items = [new ListItem(new NotLoggedInAction())] }];
+        }
+
         var t = DoGetItems();
         t.ConfigureAwait(false);
         return t.Result;
@@ -292,6 +300,29 @@ internal sealed class NoQueryFoundAction : InvokableAction
 
     public override ActionResult Invoke()
     {
+        return ActionResult.GoHome();
+    }
+}
+
+#pragma warning disable SA1402 // File may only contain a single type
+internal sealed class NotLoggedInAction : InvokableAction
+#pragma warning restore SA1402 // File may only contain a single type
+{
+    internal NotLoggedInAction()
+    {
+        this.Name = "Not logged in - please log in via Dev Home for now";
+        this.Icon = new("\uE8A7");
+    }
+
+    internal async Task LaunchLogin()
+    {
+        var developerIdProvider = DeveloperIdProvider.GetInstance();
+        await developerIdProvider.ShowLogonSession();
+    }
+
+    public override ActionResult Invoke()
+    {
+        _ = LaunchLogin();
         return ActionResult.GoHome();
     }
 }
@@ -511,6 +542,14 @@ internal sealed class OpenAzureQueryPage : ListPage
 
     public override ISection[] GetItems()
     {
+        // check if there is a valid logged in user
+        var devIdProvider = DeveloperIdProvider.GetInstance();
+        var loggedInDeveloperIds = devIdProvider.GetLoggedInDeveloperIds();
+        if (!loggedInDeveloperIds.DeveloperIds.Any())
+        {
+            return [new ListSection() { Title = "Not logged in", Items = [new ListItem(new NotLoggedInAction())] }];
+        }
+
         var items = new List<IListItem>();
         try
         {
@@ -615,6 +654,14 @@ sealed class HackerNewsPage : ListPage
 
     public override ISection[] GetItems()
     {
+        // check if there is a valid logged in user
+        var devIdProvider = DeveloperIdProvider.GetInstance();
+        var loggedInDeveloperIds = devIdProvider.GetLoggedInDeveloperIds();
+        if (!loggedInDeveloperIds.DeveloperIds.Any())
+        {
+            return [new ListSection() { Title = "Not logged in", Items = [new ListItem(new NotLoggedInAction())] }];
+        }
+
         var t = DoGetItems();
         t.ConfigureAwait(false);
         return t.Result;
